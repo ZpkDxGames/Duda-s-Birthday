@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Special Stats ⏳</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/stats.css" />
+</head>
+
+<body>
+    <header class="appbar">
+        <div class="container">
+            <nav>
+                <div class="nav-group" role="group" aria-label="Pages">
+                    <a href="./ai_chat.html"><img class="nav-icon" src="../media/icons/chat.svg" alt="" aria-hidden="true" /> Chat</a>
+                    <a href="./music.html"><img class="nav-icon" src="../media/icons/music.svg" alt="" aria-hidden="true" /> Music</a>
+                    <a href="./messages.html"><img class="nav-icon" src="../media/icons/messages.svg" alt="" aria-hidden="true" /> Messages</a>
+                    <a href="./stats.html" class="active"><img class="nav-icon" src="../media/icons/stats.svg" alt="" aria-hidden="true" /> Stats</a>
+                    <a href="../../index.html" class="nav-home nav-home-inline" title="Home"><img class="nav-icon nav-icon-home" src="../media/icons/home.svg" alt="" aria-hidden="true" /></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container stats-wrap">
+        <section class="timers">
+            <article class="card timer" id="birthdayCountdown">
+                <button class="timer-toggle" type="button" aria-expanded="false">
+                    <span class="timer-badge" aria-hidden="true">🎂</span>
+                    <span class="timer-text">
+                        <span class="label">Time 'till the next birthday</span>
+                        <span class="value">--</span>
+                    </span>
+                    <span class="timer-caret" aria-hidden="true"></span>
+                </button>
+                <div class="timer-extra" hidden>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <span class="stat-term">Current Age</span>
+                            <span class="stat-value" data-field="birthday-age">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-term">Next celebration</span>
+                            <span class="stat-value" data-field="birthday-date">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-term">Weeks remaining</span>
+                            <span class="stat-value" data-field="birthday-weeks">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-term">Total hours</span>
+                            <span class="stat-value" data-field="birthday-hours">--</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card timer" id="highSchoolTime">
+                <button class="timer-toggle" type="button" aria-expanded="false">
+                    <span class="timer-badge" aria-hidden="true">📚</span>
+                    <span class="timer-text">
+                        <span class="label">Period elapsed at the High School</span>
+                        <span class="value">--</span>
+                    </span>
+                    <span class="timer-caret" aria-hidden="true"></span>
+                </button>
+                <div class="timer-extra" hidden>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <span class="stat-term">Total days</span>
+                            <span class="stat-value" data-field="hs-days">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-term">Total hours</span>
+                            <span class="stat-value" data-field="hs-hours">--</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card timer" id="projectTime">
+                <button class="timer-toggle" type="button" aria-expanded="false">
+                    <span class="timer-badge" aria-hidden="true">💡</span>
+                    <span class="timer-text">
+                        <span class="label">Time elapsed on this project</span>
+                        <span class="value">--</span>
+                    </span>
+                    <span class="timer-caret" aria-hidden="true"></span>
+                </button>
+                <div class="timer-extra" hidden>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <span class="stat-term">Total seconds</span>
+                            <span class="stat-value" data-field="project-seconds">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-term">Project state</span>
+                            <span class="stat-value" data-field="project-minutes">100% done</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+        
+        <!-- Funny stats: progress bars -->
+        <section class="timers">
+            <article class="card timer" id="friendBar">
+                <button class="timer-toggle" type="button" aria-expanded="false">
+                    <span class="timer-badge" aria-hidden="true">🤝</span>
+                    <span class="timer-text">
+                        <span class="label">Friend bar</span>
+                        <span class="value">100%</span>
+                    </span>
+                    <span class="timer-caret" aria-hidden="true"></span>
+                </button>
+                <div class="timer-extra" hidden>
+                    <div class="timer-body">
+                        <div class="prog">
+                            <div class="prog-track">
+                                <div class="prog-fill" style="width:100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card timer" id="trustInDuda">
+                <button class="timer-toggle" type="button" aria-expanded="false">
+                    <span class="timer-badge" aria-hidden="true">🫶</span>
+                    <span class="timer-text">
+                        <span class="label">Trust in Duda</span>
+                        <span class="value">♾️</span>
+                    </span>
+                    <span class="timer-caret" aria-hidden="true"></span>
+                </button>
+                <div class="timer-extra" hidden>
+                    <div class="timer-body">
+                        <div class="prog">
+                            <div class="prog-track">
+                                <div class="prog-fill" style="width:100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card timer" id="instabilityYears">
+                <button class="timer-toggle" type="button" aria-expanded="false">
+                    <span class="timer-badge" aria-hidden="true">🌪️</span>
+                    <span class="timer-text">
+                        <span class="label">Instability during the years</span>
+                        <span class="value">58%</span>
+                    </span>
+                    <span class="timer-caret" aria-hidden="true"></span>
+                </button>
+                <div class="timer-extra" hidden>
+                    <div class="timer-body">
+                        <div class="prog">
+                            <div class="prog-track">
+                                <div class="prog-fill" style="width:58%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Funny stats: counters (no extra info) -->
+        <section class="timers">
+            <article class="card timer" id="timesGossiped">
+                <div class="timer-head">
+                    <span class="timer-badge" aria-hidden="true">🗣️</span>
+                    <span class="timer-text">
+                        <span class="label">Times gossiped</span>
+                        <span class="value">73.312</span>
+                    </span>
+                </div>
+            </article>
+
+            <article class="card timer" id="discordMessages">
+                <div class="timer-head">
+                    <span class="timer-badge" aria-hidden="true">💬</span>
+                    <span class="timer-text">
+                        <span class="label">Discord messages sent</span>
+                        <span class="value">38.498</span>
+                    </span>
+                </div>
+            </article>
+
+            <article class="card timer" id="totalFights">
+                <div class="timer-head">
+                    <span class="timer-badge" aria-hidden="true">🕊️</span>
+                    <span class="timer-text">
+                        <span class="label">Total fights</span>
+                        <span class="value">3</span>
+                    </span>
+                </div>
+            </article>
+
+            <article class="card timer" id="wantedWorst">
+                <div class="timer-head">
+                    <span class="timer-badge" aria-hidden="true">💞</span>
+                    <span class="timer-text">
+                        <span class="label">Times we wanted the worst to each other</span>
+                        <span class="value">0</span>
+                    </span>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="../js/nav.js"></script>
+    <script src="../js/stats.js"></script>
+</body>
+
+</html>

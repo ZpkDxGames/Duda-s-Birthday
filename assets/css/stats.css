@@ -1,0 +1,284 @@
+/* Page background */
+body {
+    background: radial-gradient(120% 120% at 50% 50%, rgba(0,0,0,0) 62%, rgba(0,0,0,.20) 100%),
+                url('../media/backgrounds/stats-background.webp'),
+                var(--bg);
+    background-size: cover, cover, auto;
+    background-position: center, center, center;
+    background-repeat: no-repeat, repeat, repeat;
+    background-attachment: fixed, fixed, scroll;
+}
+.stats-wrap {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.timers {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+}
+
+.timer {
+    position: relative;
+    padding: 0;
+    border-radius: 1.2rem;
+    background: radial-gradient(160% 120% at 0% 0%, rgba(255, 255, 255, 0.92) 0%, rgba(247, 248, 252, 0.85) 55%, rgba(240, 242, 248, 0.9) 100%);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    animation: card-rise .6s var(--ease)
+}
+
+.timer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, 0) 70%);
+    opacity: .75;
+    border-radius: inherit;
+}
+
+.timer:hover {
+    transform: translateY(-4px);
+    /* Use stronger shadow when available, otherwise fall back to base shadow */
+    box-shadow: var(--shadow-2, var(--shadow))
+}
+
+.timer-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.4rem;
+    cursor: pointer;
+    text-align: left;
+    color: inherit;
+    position: relative;
+    z-index: 1
+}
+
+/* Static header for non-expandable timer cards */
+.timer-head {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.4rem;
+    text-align: left;
+    color: inherit;
+    position: relative;
+    z-index: 1;
+}
+
+.timer-toggle:focus-visible {
+    outline: 3px solid color-mix(in oklab, var(--accent) 45%, #ffffff);
+    outline-offset: 4px
+}
+
+.timer-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    font-size: 1.6rem;
+    background: rgba(255, 255, 255, .7);
+    box-shadow: var(--shadow)
+}
+
+.timer-text {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem
+}
+
+.timer-text .label {
+    font-size: .88rem;
+    font-weight: 600;
+    opacity: .75;
+    letter-spacing: .02em
+}
+
+.timer-text .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: .015em
+}
+
+.timer-caret {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .75);
+    display: grid;
+    place-items: center;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .05);
+    transition: transform .28s var(--ease)
+}
+
+.timer-caret::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-bottom: 2px solid rgba(0, 0, 0, .45);
+    border-right: 2px solid rgba(0, 0, 0, .45);
+    transform: rotate(45deg);
+    display: block;
+    margin-top: -2px
+}
+
+.timer.open .timer-caret {
+    transform: rotate(180deg)
+}
+
+.timer-extra {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    height: 0; /* use height animation for reliable control */
+    opacity: 0;
+    transform: translateY(16px) scale(.98);
+    box-sizing: border-box;
+    display: block;
+    transition:
+        height 480ms cubic-bezier(.22, .85, .25, 1),
+        opacity 260ms ease-out,
+        transform 480ms cubic-bezier(.22, .85, .25, 1);
+    will-change: height, opacity, transform
+}
+.timer.open .timer-extra { opacity: 1; transform: translateY(0) scale(1) }
+
+.timer.open .timer-extra .timer-body {
+    animation: extra-rise .48s var(--ease)
+}
+
+.timer.collapsing .timer-extra .timer-body {
+    animation: none
+}
+
+/* Inner padded body to avoid padding affecting collapsed height */
+.timer-extra .timer-body {
+    padding: 1.2rem 1.6rem;
+}
+
+.stat-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0;
+    justify-content: center;
+    width: 100%
+}
+
+.stat-item {
+    padding: .85rem 1rem;
+    border-radius: .9rem;
+    background: rgba(255, 255, 255, .65);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35);
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    align-items: center;
+    text-align: center;
+    flex: 0 1 auto;
+    min-width: 140px
+}
+
+@supports (backdrop-filter: blur(6px)) {
+    .stat-item {
+        backdrop-filter: blur(6px);
+        background: rgba(255, 255, 255, .45)
+    }
+}
+
+.stat-term {
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    opacity: .6;
+    font-weight: 600
+}
+
+.stat-value {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: .015em
+}
+
+/* Ensure long texts never overflow the card width */
+.timer-text .label,
+.timer-text .value,
+.stat-term,
+.stat-value { overflow-wrap: break-word; word-break: break-word; }
+
+/* Center and contain expanded content on both pages */
+.timer-extra { text-align: center; }
+.timer-extra > * { margin-left: auto; margin-right: auto; }
+.timer-extra > .timer-body > .content { max-width: 70ch; line-height: 1.6; padding: 0.5rem 0; }
+.timer-extra > .timer-body > .stat-grid { width: 100%; justify-content: center; }
+
+/* Progress bar styling for funny stats */
+.prog { width: 100%; }
+.prog-track {
+    width: 100%;
+    height: 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .6);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .04);
+    overflow: hidden;
+}
+.prog-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--secondary));
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .08);
+}
+
+@keyframes card-rise {
+    0% {
+        opacity: 0;
+        transform: translateY(24px) scale(.96)
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(-6px) scale(1.01)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1)
+    }
+}
+
+@keyframes extra-rise {
+    0% {
+        opacity: 0;
+        transform: translateY(18px)
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateY(-4px)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .timer,
+    .timer-caret,
+    .timer-extra { transition: none !important; transform: none !important }
+
+    .timer { animation: none !important }
+    .timer.open .timer-extra .timer-body { animation: none !important }
+}

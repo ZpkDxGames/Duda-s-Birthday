@@ -1,0 +1,562 @@
+:root {
+    --bg: #fdf6f0;
+    --accent: #d9b5ff;
+    --secondary: #ffcce1;
+    --text: #2e2e2e;
+    --radius: 1rem;
+    --shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    --shadow-2: 0 8px 28px rgba(0, 0, 0, 0.14);
+    --ease: ease-in-out;
+    --dur: 0.4s;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Poppins', 'Quicksand', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-y: auto;
+    /* Prevent text selection and image manipulation */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Prevent image dragging and context menu */
+img {
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    pointer-events: none;
+}
+
+/* Re-enable pointer events for interactive images (buttons, clickable elements) */
+button img,
+a img,
+.logo img,
+[role="button"] img {
+    pointer-events: auto;
+}
+
+/* Links & buttons */
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .7rem 1rem;
+    border-radius: var(--radius);
+    background: var(--accent);
+    color: #241a2e;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: filter var(--dur) var(--ease), transform var(--dur) var(--ease)
+}
+
+.btn.secondary {
+    background: var(--secondary)
+}
+
+.btn:hover {
+    filter: brightness(0.98);
+    transform: translateY(-1px)
+}
+
+/* Containers */
+.container {
+    max-width: 1100px;
+    margin-inline: auto;
+    padding: .75rem
+}
+
+/* Allow text selection in input fields and editable content */
+input,
+textarea,
+[contenteditable="true"] {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+}
+
+.card {
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1rem;
+    overflow: hidden; /* clip inner content to rounded corners */
+    background-clip: padding-box; /* avoid border bleed artifacts on corners */
+    animation: surface-rise .6s cubic-bezier(.22, .8, .25, 1) both
+}
+
+/* Avoid trailing bottom gaps from last-child margins */
+.container> :last-child {
+    margin-bottom: 0
+}
+
+main> :last-child {
+    margin-bottom: 0
+}
+
+/* Page transitions */
+.page {
+    opacity: 0;
+    transform: translateY(24px) scale(.985);
+    filter: blur(14px) saturate(.96);
+    transition:
+        opacity .52s cubic-bezier(.16, 1, .3, 1),
+        transform .52s cubic-bezier(.16, 1, .3, 1),
+        filter .52s cubic-bezier(.16, 1, .3, 1)
+}
+
+.page.page-enter {
+    opacity: 0;
+    transform: translateY(24px) scale(.985);
+    filter: blur(14px) saturate(.96)
+}
+
+.page.page-enter-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0) saturate(1)
+}
+
+.page.fade-out {
+    opacity: 0;
+    transform: translateY(-18px) scale(.985);
+    filter: blur(16px) saturate(.9)
+}
+
+/* When this class is present on html, neutralize body transform so fixed elements behave to viewport */
+html.no-page-transform .page {
+    transform: none !important;
+    filter: none !important
+}
+
+/* Floating animation */
+@keyframes float {
+    0% {
+        transform: translateY(0)
+    }
+
+    50% {
+        transform: translateY(-15px)
+    }
+
+    100% {
+        transform: translateY(0)
+    }
+}
+
+@keyframes surface-rise {
+    0% {
+        opacity: 0;
+        transform: translateY(22px) scale(.97)
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(-4px) scale(1.01)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1)
+    }
+}
+
+@keyframes nav-pill-bounce {
+    0% {
+        transform: translateY(0) scale(1)
+    }
+
+    35% {
+        transform: translateY(-8px) scale(1.03)
+    }
+
+    55% {
+        transform: translateY(3px) scale(.98)
+    }
+
+    75% {
+        transform: translateY(-3px) scale(1.01)
+    }
+
+    100% {
+        transform: translateY(0) scale(1)
+    }
+}
+
+/* Utilities */
+.center {
+    display: grid;
+    place-items: center
+}
+
+.hidden {
+    display: none !important
+}
+
+.muted {
+    opacity: .75
+}
+
+.spacer {
+    height: 1rem
+}
+
+.grid {
+    display: grid;
+    gap: 1rem
+}
+
+header.appbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* Fully transparent header: remove light-gray chrome */
+    background: transparent;
+    z-index: 22;
+    border-bottom: 0;
+    box-shadow: none;
+    padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Prevent content from being hidden under the fixed header */
+.appbar + main {
+    /* Offset for fixed header, with safe area support. Header is ~64px, add 0.5rem gap. */
+    padding-top: calc(64px + 0.5rem + env(safe-area-inset-top, 0px));
+}
+
+nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .6rem .9rem;
+    border-radius: 999px;
+    transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+    will-change: transform;
+}
+
+nav a:not(.nav-home).active,
+nav a:not(.nav-home):hover {
+    background: rgba(0, 0, 0, .06)
+}
+
+/* Consistent hover/press motion for all header shortcuts */
+nav a:hover,
+nav a:focus-visible {
+    animation: nav-pill-bounce .6s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+nav a:not(.nav-home):active {
+    animation: none;
+    transform: translateY(0);
+    background: rgba(0,0,0,.09);
+}
+
+header.appbar .container {
+    /* Use a 3-column grid so the brand can stay perfectly centered
+       regardless of the nav width on the right. */
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem
+}
+
+/* Centered brand (icon + text) */
+.brand {
+    grid-column: 2;
+    justify-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-weight: 600;
+    letter-spacing: .2px;
+}
+
+.brand .brand-icon {
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+}
+
+nav {
+    grid-column: 2;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: max-content;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    justify-content: center;
+    align-items: center;
+    gap: .4rem;
+}
+
+/* Icons inside nav pills */
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+/* Home shortcut on its own row with pop-up style and left arrow */
+.nav-home {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 1.5px solid rgba(0, 0, 0, .08);
+    box-shadow: var(--shadow);
+    margin-left: .35rem;
+    padding: .45rem;
+    border-radius: 999px;
+    transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
+    will-change: transform;
+    min-width: 0;
+    flex: 0 0 auto;
+}
+
+.nav-home-inline {
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 46px;
+    width: 46px;
+    padding: 0;
+}
+
+.nav-home:hover,
+.nav-home:focus-visible {
+    animation: nav-pill-bounce .6s cubic-bezier(.34, 1.56, .64, 1);
+    background: #fff;
+}
+
+.nav-home:active {
+    animation: none;
+    transform: translateY(0);
+    background: #fff;
+}
+
+.nav-icon-home {
+    width: 30px;
+    height: 30px;
+}
+
+/* (No arrow for .nav-home as requested) */
+
+/* Connected group for the first 4 shortcuts */
+.nav-group {
+    display: inline-flex;
+    align-items: stretch;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .08);
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.nav-group a {
+    border-radius: 0; /* let the group own the rounding */
+    padding: .6rem 1rem;
+    background: transparent; /* inherit group background */
+    transition: background var(--dur) var(--ease), transform var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.nav-group a + a {
+    position: relative;
+}
+
+.nav-group a + a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: rgba(0, 0, 0, .06);
+}
+
+.nav-group a:hover {
+    background: rgba(0, 0, 0, .05);
+}
+
+.nav-group a.active {
+    background: rgba(0, 0, 0, .08);
+}
+
+@media (max-width: 560px) {
+    header.appbar .container {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+
+    nav {
+        width: 100%;
+    }
+
+    .nav-group {
+        width: 100%;
+        max-width: 340px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .nav-group a {
+        flex: 1 1 50%;
+        min-width: 140px;
+        justify-content: center;
+    }
+
+    .nav-group a + a::before {
+        display: none;
+    }
+
+    .nav-home {
+        flex: 0 0 auto;
+        width: auto;
+    }
+}
+
+/* Subtle radial pulse on click for common interactive elements */
+.btn,
+nav a,
+.timer-toggle,
+.carousel-nav,
+.modal-close,
+.volume-toggle,
+.play-toggle {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.btn::after,
+nav a::after,
+.timer-toggle::after,
+.carousel-nav::after,
+.modal-close::after,
+.volume-toggle::after,
+.play-toggle::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(120px 120px at center, rgba(0,0,0,.10), transparent 60%);
+    opacity: 0;
+    transform: scale(.6);
+    transition: opacity .35s var(--ease), transform .35s var(--ease);
+    pointer-events: none;
+}
+
+.btn:active::after,
+nav a:active::after,
+.timer-toggle:active::after,
+.carousel-nav:active::after,
+.modal-close:active::after,
+.volume-toggle:active::after,
+.play-toggle:active::after {
+    opacity: 1;
+    transform: scale(1);
+    transition-duration: .18s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    nav a,
+    .nav-home,
+    .btn,
+    .timer-toggle,
+    .carousel-nav,
+    .modal-close,
+    .volume-toggle,
+    .play-toggle,
+    .page { transition: none !important; }
+    nav a:hover,
+    nav a:focus-visible,
+    .nav-home:hover,
+    .nav-home:focus-visible { animation: none !important; }
+    .btn::after,
+    nav a::after,
+    .timer-toggle::after,
+    .carousel-nav::after,
+    .modal-close::after,
+    .volume-toggle::after,
+    .play-toggle::after { display: none; }
+
+    .page {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
+    .card {
+        animation: none !important;
+    }
+}
+
+/* Focus styles for interactive elements */
+.focus-ring:focus-visible {
+    outline: 3px solid rgba(217, 181, 255, .9);
+    outline-offset: 3px;
+    border-radius: var(--radius)
+}
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Quicksand:wght@400;600&display=swap');
+
+/* Hide native scrollbars to avoid layout shift; we'll draw an overlay indicator */
+html::-webkit-scrollbar {
+    width: 0;
+    height: 0
+}
+
+html {
+    scrollbar-width: none
+}
+
+/* Overlay scrollbar indicator */
+#overlayScrollbar {
+    position: fixed;
+    right: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 6px;
+    z-index: 25;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease)
+}
+
+#overlayScrollbar.visible {
+    opacity: .85
+}
+
+#overlayScrollbar.hidden {
+    display: none
+}
+
+#overlayScrollbar .thumb {
+    width: 100%;
+    height: 40px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--accent), var(--secondary));
+    box-shadow: var(--shadow)
+}

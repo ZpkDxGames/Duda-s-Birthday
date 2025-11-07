@@ -1,0 +1,31 @@
+/* Page background */
+body {
+    background: radial-gradient(120% 120% at 50% 50%, rgba(0,0,0,0) 62%, rgba(0,0,0,.20) 100%),
+                url('../media/backgrounds/messages-background.webp'),
+                var(--bg);
+    background-size: cover, cover, auto;
+    background-position: center, center, center;
+    background-repeat: no-repeat, repeat, repeat;
+    background-attachment: fixed, fixed, scroll;
+}
+.stack { display: grid; gap: 1.25rem; }
+
+/* Entry animation for cards appearing in viewport */
+.message-card { opacity: 0; transform: translateY(8px); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease) }
+.message-card.visible { opacity: 1; transform: translateY(0) }
+
+/* Fine-tune spacing inside message timer cards */
+.message-card .timer-text .label { font-size: 1rem }
+/* Let .timer-extra control inner spacing; ensure content wraps safely */
+.message-card .content { 
+    overflow-wrap: break-word; 
+    word-break: break-word; 
+    text-align: center;
+    max-width: 100%;
+    line-height: 1.6;
+    padding: 0.5rem 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .message-card { transition: none !important; transform: none !important }
+}

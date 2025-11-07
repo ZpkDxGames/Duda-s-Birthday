@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Duda's Birthday ✨</title>
+    <meta name="description" content="A magical little birthday surprise for Duda" />
+    <link rel="stylesheet" href="./assets/css/theme.css" />
+    <link rel="stylesheet" href="./assets/css/index.css" />
+</head>
+
+<body style="overflow: hidden;">
+    <main class="landing" role="main" aria-label="Landing">
+        <section class="center" style="padding-top:10vh">
+            <div class="logo focus-ring" role="button" tabindex="0" aria-label="Open the birthday surprise">
+                <img src="./assets/media/duda.webp" alt="Duda" />
+            </div>
+        </section>
+
+        <section aria-live="polite">
+            <div class="message-box">
+                <span class="pulse" aria-hidden="true"></span>
+                <span>Click on it for the surprise ✨</span>
+            </div>
+        </section>
+    </main>
+
+    <script src="./assets/js/nav.js"></script>
+    <script src="./assets/js/confetti-loader.js"></script>
+    <script>
+        // Confetti burst on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            // Golden confetti shower from the top, evenly distributed
+            function showerConfetti() {
+                if (!window.confetti) return;
+                const count = 12; // Number of sources across the top
+                for (let i = 0; i < count; i++) {
+                    window.confetti({
+                        particleCount: 18,
+                        angle: 90,
+                        spread: 25,
+                        startVelocity: 38,
+                        gravity: 0.7,
+                        origin: { x: i/(count-1), y: 0 },
+                        colors: [
+                            '#FFD700', // gold
+                            '#FFF8DC', // cornsilk (light gold)
+                            '#FFFACD', // lemon chiffon
+                            '#FFECB3', // pale gold
+                            '#FFF9E3', // off-white gold
+                            '#F6E27A', // shiny yellow
+                            '#F9D923', // bright gold
+                            '#F7C873'  // warm gold
+                        ],
+                        scalar: 1.1,
+                        ticks: 320,
+                        shapes: ['square', 'circle'],
+                        zIndex: 1000,
+                        disableForReducedMotion: true,
+                    });
+                }
+            }
+            const confettiInterval = setInterval(showerConfetti, 220);
+            setTimeout(() => clearInterval(confettiInterval), 3200);
+        });
+        const logo = document.querySelector('.logo');
+        const open = () => window.__nav.navigateWithFade('./assets/html/ai_chat.html');
+        logo.addEventListener('click', open);
+        logo.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    </script>
+</body>
+
+</html>

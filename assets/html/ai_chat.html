@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chat with Taylor 🎤</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/chat.css" />
+</head>
+
+<body>
+    <header class="appbar">
+        <div class="container">
+            <nav>
+                <div class="nav-group" role="group" aria-label="Pages">
+                    <a href="./ai_chat.html" class="active"><img class="nav-icon" src="../media/icons/chat.svg" alt="" aria-hidden="true" /> Chat</a>
+                    <a href="./music.html"><img class="nav-icon" src="../media/icons/music.svg" alt="" aria-hidden="true" /> Music</a>
+                    <a href="./messages.html"><img class="nav-icon" src="../media/icons/messages.svg" alt="" aria-hidden="true" /> Messages</a>
+                    <a href="./stats.html"><img class="nav-icon" src="../media/icons/stats.svg" alt="" aria-hidden="true" /> Stats</a>
+                    <a href="../../index.html" class="nav-home nav-home-inline" title="Home"><img class="nav-icon nav-icon-home" src="../media/icons/home.svg" alt="" aria-hidden="true" /></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="chat-wrap container">
+        <section class="messages" id="messages" aria-live="polite"></section>
+        <div class="composer">
+            <button class="btn secondary" id="historyBtn" title="Manage chat history">History</button>
+            <input id="userInput" type="text" placeholder="Tell me something magical…" autocomplete="off" />
+            <button class="btn" id="sendBtn">Send</button>
+        </div>
+    </main>
+
+    <!-- Modal overlay and centered popups -->
+    <div id="modalOverlay" class="modal-overlay hidden" aria-hidden="true"></div>
+
+    <!-- History modal -->
+    <div id="historyModal" class="modal-root hidden" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="historyTitle">
+            <div class="modal-head">
+                <strong id="historyTitle">History</strong>
+                <button class="modal-close" data-close-modal aria-label="Close">×</button>
+            </div>
+            <div class="modal-body">
+                <p class="muted">Saved sessions <span id="historyCount">(0)</span></p>
+                <div class="saved-carousel" aria-live="polite">
+                    <button class="carousel-nav prev" id="savedPrev" aria-label="Previous session"
+                        title="Previous">◀</button>
+                    <div class="carousel-viewport">
+                        <div id="savedCarousel" class="carousel-track"></div>
+                    </div>
+                    <button class="carousel-nav next" id="savedNext" aria-label="Next session" title="Next">▶</button>
+                </div>
+                <div class="carousel-meta">
+                    <span class="muted" id="savedIndexLabel">0/0</span>
+                    <div class="session-actions">
+                        <button class="btn secondary" id="loadSavedBtn">Load selected</button>
+                        <button class="btn danger" id="deleteSavedBtn">Delete selected</button>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn secondary" id="saveSessionBtn">Save current session</button>
+                    <button class="btn" id="newSessionBtn">Start new conversation</button>
+                    <button class="btn danger" id="clearSavedBtn">Clear saved sessions</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic dialog modal (notice/confirm) -->
+    <div id="dialogModal" class="modal-root hidden" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+            <div class="modal-head">
+                <strong id="dialogTitle">Notice</strong>
+                <button class="modal-close" data-close-modal aria-label="Close">×</button>
+            </div>
+            <div class="modal-body">
+                <p id="dialogMessage"></p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn secondary" id="dialogCancel">Cancel</button>
+                <button class="btn" id="dialogOk">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/nav.js"></script>
+    <script src="../js/ai-logic.js"></script>
+    <script src="../js/chat.js"></script>
+</body>
+
+</html>

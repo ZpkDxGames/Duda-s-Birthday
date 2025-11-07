@@ -1,0 +1,416 @@
+/* Page background */
+body {
+    background: radial-gradient(120% 120% at 50% 50%, rgba(0,0,0,0) 62%, rgba(0,0,0,.20) 100%),
+                url('../media/backgrounds/chat-background.webp'),
+                var(--bg);
+    background-size: cover, cover, auto;
+    background-position: center, center, center;
+    background-repeat: no-repeat, repeat, repeat;
+    background-attachment: fixed, fixed, scroll;
+}
+
+
+/* Add extra bottom padding so the fixed composer never overlaps the last messages */
+.messages {
+    /* Rely on container padding for horizontal rhythm so it aligns with fixed composer */
+    padding: .5rem 0 calc(96px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    scroll-behavior: smooth
+}
+
+.msg {
+    display: flex;
+    gap: .6rem;
+    align-items: center
+}
+
+.msg.user {
+    justify-content: flex-end
+}
+
+.avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    flex: 0 0 56px;
+    object-fit: cover;
+    box-shadow: var(--shadow)
+}
+
+@media (max-width: 420px) {
+    .avatar {
+        width: 46px;
+        height: 46px;
+        flex: 0 0 46px
+    }
+}
+
+.bubble {
+    max-width: min(80%, 700px);
+    padding: .75rem 1rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    background: #fff;
+    /* Honor \n line breaks from JS strings while still wrapping normally */
+    white-space: pre-line;
+}
+
+.msg.user .bubble {
+    border-bottom-right-radius: .3rem;
+    background: var(--accent);
+    color: #241a2e
+}
+
+.msg.assistant .bubble {
+    border-bottom-left-radius: .3rem;
+    background: #fff
+}
+
+.bubble.system {
+    align-self: center;
+    background: #f7f3ff;
+    color: #5a4f6f
+}
+
+.composer {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: max(0px, env(safe-area-inset-bottom, 0px));
+    /* Match the inner .container width (subtract its 0.75rem padding on both sides) */
+    width: min(1100px, calc(100% - 1.5rem));
+    display: flex;
+    gap: .6rem;
+    padding: .6rem 1rem;
+    /* Create stacking context so the full-bleed pseudo background sits behind controls */
+    isolation: isolate;
+    /* Simpler chrome: no blend background. Keep controls floating above content. */
+    background: transparent;
+    z-index: 26;
+    border-top: 0;
+    box-shadow: none;
+}
+
+
+.composer input {
+    flex: 1;
+    height: 56px;
+    padding: 0 1.2rem;
+    border-radius: 999px;
+    border: 1px solid #e7def3;
+    outline: none;
+    box-shadow: inset 0 1px 0 rgba(0, 0, 0, .03);
+    background: #fff;
+    font-size: 1rem
+}
+
+.composer input:focus {
+    border-color: var(--accent);
+    outline: 3px solid rgba(217, 181, 255, .35)
+}
+
+.composer .btn {
+    height: 56px;
+    padding: 0 1.2rem;
+    font-size: .98rem
+}
+
+.composer .btn.secondary {
+    background: #faf7ff
+}
+
+.typing {
+    display: inline-flex;
+    gap: .25rem;
+    align-items: center
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #bfa5ff;
+    animation: blink 1s infinite
+}
+
+.dot:nth-child(2) {
+    animation-delay: .15s
+}
+
+.dot:nth-child(3) {
+    animation-delay: .3s
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: .2
+    }
+
+    50% {
+        opacity: 1
+    }
+}
+
+/* Removed settings modal styles */
+
+/* History dropdown menu */
+/* Centered modal + overlay for depth */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(36, 26, 46, .28);
+    backdrop-filter: blur(6px) saturate(1.2);
+    z-index: 30;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur) var(--ease);
+}
+
+.modal-overlay.intense {
+    background: rgba(36, 26, 46, .45);
+    backdrop-filter: blur(8px) saturate(1.2)
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-overlay:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-root {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 40
+}
+
+.modal-root.hidden {
+    display: none
+}
+
+.modal-card {
+    width: min(520px, 92vw);
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    padding: 1rem;
+    overflow: hidden; /* keep inner content rounded */
+    animation: modal-rise .45s var(--ease)
+}
+
+.modal-root#dialogModal .modal-card {
+    box-shadow: 0 10px 30px rgba(36, 26, 46, .25), 0 2px 10px rgba(0, 0, 0, .08)
+}
+
+.modal-root.hidden .modal-card {
+    animation: none
+}
+
+.modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .5rem
+}
+
+.modal-close {
+    border: none;
+    background: transparent;
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1
+}
+
+.modal-body {
+    max-height: min(60vh, 520px);
+    overflow: auto
+}
+
+.modal-actions {
+    display: grid;
+    gap: .5rem;
+    margin-top: .75rem
+}
+
+.btn.danger {
+    background: #fff0f3;
+    color: #a40032
+}
+
+/* Saved list styles */
+/* Saved sessions carousel */
+.saved-carousel {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: .4rem;
+    align-items: center;
+    margin: .5rem 0
+}
+
+.carousel-viewport {
+    overflow: hidden;
+    border-radius: .6rem
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform var(--dur) var(--ease);
+    width: 100%
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+    padding: .6rem
+}
+
+.session-card {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: .8rem;
+    box-shadow: var(--shadow);
+    padding: .8rem;
+    overflow: hidden; /* clip to rounded corners */
+}
+
+.session-title {
+    font-weight: 600
+}
+
+.session-meta {
+    font-size: .8rem;
+    opacity: .7;
+    margin-top: .2rem
+}
+
+.carousel-nav {
+    border: none;
+    background: #faf7ff;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: var(--shadow)
+}
+
+.carousel-nav:disabled {
+    opacity: .5;
+    cursor: not-allowed
+}
+
+.carousel-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: .4rem
+}
+
+.session-actions {
+    display: flex;
+    gap: .4rem
+}
+
+.session-actions .btn {
+    height: 32px;
+    padding: 0 .6rem
+}
+
+/* Appear animations for messages (smoother and slightly longer) */
+@keyframes riseIn {
+    0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98)
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(0) scale(1.003)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1)
+    }
+}
+
+.msg.animate .bubble {
+    animation: riseIn .45s cubic-bezier(.22, .61, .36, 1) both
+}
+
+.msg.assistant.animate .avatar,
+.msg.user.animate .avatar {
+    animation: riseIn .45s cubic-bezier(.22, .61, .36, 1) both
+}
+
+/* Exit animation when temporary rows disappear */
+@keyframes fallOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1)
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98)
+    }
+}
+
+.msg.exit .bubble {
+    animation: fallOut .22s var(--ease) both
+}
+
+.msg.exit .avatar {
+    animation: fallOut .22s var(--ease) both
+}
+
+/* Typing row label */
+.typing-label {
+    font-size: .85rem;
+    opacity: .7;
+    margin-left: .35rem
+}
+
+@keyframes modal-rise {
+    0% {
+        opacity: 0;
+        transform: translateY(24px) scale(.96)
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(-4px) scale(1.01)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1)
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .msg.animate .bubble,
+    .msg.assistant.animate .avatar,
+    .msg.user.animate .avatar {
+        animation: none
+    }
+
+    .msg.exit .bubble,
+    .msg.exit .avatar {
+        animation: none
+    }
+
+    .modal-card {
+        animation: none !important
+    }
+}

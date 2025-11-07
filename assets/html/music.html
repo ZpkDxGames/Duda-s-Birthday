@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Music for Duda 🎵</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/music.css" />
+</head>
+
+<body>
+    <header class="appbar">
+        <div class="container">
+            <nav>
+                <div class="nav-group" role="group" aria-label="Pages">
+                    <a href="./ai_chat.html"><img class="nav-icon" src="../media/icons/chat.svg" alt="" aria-hidden="true" /> Chat</a>
+                    <a href="./music.html" class="active"><img class="nav-icon" src="../media/icons/music.svg" alt="" aria-hidden="true" /> Music</a>
+                    <a href="./messages.html"><img class="nav-icon" src="../media/icons/messages.svg" alt="" aria-hidden="true" /> Messages</a>
+                    <a href="./stats.html"><img class="nav-icon" src="../media/icons/stats.svg" alt="" aria-hidden="true" /> Stats</a>
+                    <a href="../../index.html" class="nav-home nav-home-inline" title="Home"><img class="nav-icon nav-icon-home" src="../media/icons/home.svg" alt="" aria-hidden="true" /></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container music-wrap">
+        <section class="player">
+            <article class="card">
+                <div id="nowPlaying" class="now-playing">...</div>
+                <img class="cover" src="../media/albums/defaultcover.webp" alt="Album cover" />
+                <div class="title" id="title">Nothing playing...</div>
+                <div class="artist" id="artist">???</div>
+            </article>
+            <article class="card controls-row">
+                <div class="controls-compact">
+                    <div class="controls-top">
+                        <button class="play-toggle" id="playToggle" aria-label="Play">
+                            <img id="playIcon" src="../media/keys/play.svg" alt="Play" />
+                        </button>
+                        <div class="controls-spacer"></div>
+                        <div class="volume-wrap" aria-label="Volume">
+                            <button id="volumeToggle" class="volume-toggle" aria-label="Volume" title="Volume" aria-expanded="false">
+                                <img id="volumeIcon" src="../media/keys/highvolume.svg" alt="Volume" />
+                            </button>
+                            <div id="volumePopover" class="volume-popover" aria-hidden="true">
+                                <div class="vp-body">
+                                    <!-- Hidden range input kept for semantics; UI uses custom slider below -->
+                                    <input id="volume" type="range" min="0" max="100" value="100" step="1" aria-label="Volume" />
+                                    <div id="vslider" class="vslider" role="presentation">
+                                        <div class="vfill" aria-hidden="true"></div>
+                                        <div class="vthumb" aria-hidden="true"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline timeline-full">
+                        <span class="time cur" id="curTime">00:00</span>
+                        <input id="seek" type="range" min="0" max="0" value="0" step="1" aria-label="Seek">
+                        <span class="time dur" id="durTime">00:00</span>
+                    </div>
+                </div>
+            </article>
+            <audio id="audio" preload="metadata"></audio>
+            <div class="tracklist-pop">
+                <div class="tracklist-head">
+                    <strong>Tracklist</strong>
+                    <span class="count" id="trackCount"></span>
+                </div>
+                <div class="tracklist-scroll">
+                    <ul class="tracklist" id="tracklist"></ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/nav.js"></script>
+    <script src="../js/music.js"></script>
+</body>
+
+</html>
