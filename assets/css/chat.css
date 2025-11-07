@@ -111,7 +111,8 @@ body {
     outline: none;
     box-shadow: inset 0 1px 0 rgba(0, 0, 0, .03);
     background: #fff;
-    font-size: 1rem
+    font-size: 1rem;
+    min-width: 0; /* allow shrinking without squeezing buttons */
 }
 
 .composer input:focus {
@@ -436,8 +437,8 @@ body {
 }
 
 @media (max-width: 560px) {
-    .composer { width: calc(100% - 1rem); gap: .5rem; padding: .5rem .6rem; }
-    .composer input { height: 52px; }
-    .composer .btn { height: 52px; width: 52px; }
-    .composer .btn img { width: 20px; height: 20px; }
+    .composer { width: calc(100% - 1rem); gap: .4rem; padding: .5rem .55rem; }
+    .composer input { height: 50px; }
+    .composer .btn { height: 48px; width: 48px; }
+    .composer .btn img { width: 18px; height: 18px; }
 }

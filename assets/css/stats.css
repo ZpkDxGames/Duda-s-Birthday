@@ -291,3 +291,16 @@ body {
         background-position: center top, center, center;
     }
 }
+
+/* Mobile: two-per-line inner stats grid and wider container */
+@media (max-width: 600px) {
+    .stats-wrap.container { padding-inline: clamp(.4rem, 2.5vw, 1rem); width: min(100%, 96vw); }
+
+    .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: .8rem;
+        justify-content: stretch;
+    }
+    .stat-item { min-width: 0; width: 100%; }
+}

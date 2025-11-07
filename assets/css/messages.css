@@ -45,3 +45,8 @@ body {
         background-position: center top, center, center;
     }
 }
+
+@media (max-width: 600px) {
+    /* Widen pop-ups by relaxing container side padding on mobile */
+    .messages-wrap.container { padding-inline: clamp(.4rem, 2.5vw, 1rem); width: min(100%, 96vw); }
+}

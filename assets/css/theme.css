@@ -100,7 +100,7 @@ main {
     flex: 1 0 auto;
     width: 100%;
     margin-inline: auto;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(.25rem, 1.5vh, .75rem));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 main.container {
