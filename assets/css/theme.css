@@ -100,7 +100,7 @@ main {
     flex: 1 0 auto;
     width: 100%;
     margin-inline: auto;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(1.5rem, 5vh, 3rem));
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(.25rem, 1.5vh, .75rem));
 }
 
 main.container {
@@ -425,37 +425,30 @@ nav {
 }
 
 @media (max-width: 560px) {
-    header.appbar .container {
-        flex-direction: column;
-        gap: .5rem;
-    }
+    header.appbar .container { flex-direction: column; gap: .4rem; }
 
-    nav {
-        width: 100%;
-    }
+    nav { width: 100%; }
 
     .nav-group {
-        width: 100%;
-        max-width: min(340px, 100%);
-        flex-wrap: wrap;
+        width: auto;
+        max-width: 100%;
+        flex-wrap: nowrap;
         justify-content: center;
-        gap: 0;
+        gap: .2rem;
     }
 
     .nav-group a {
-        flex: 1 1 50%;
-        min-width: 140px;
-        justify-content: center;
-    }
-
-    .nav-group a + a::before {
-        display: none;
-    }
-
-    .nav-home {
         flex: 0 0 auto;
-        width: auto;
+        min-width: 0;
+        justify-content: center;
+        padding: .45rem .5rem;
+        font-size: 0; /* hide text label on mobile to keep one row */
     }
+
+    .nav-group a + a::before { display: none; }
+
+    .nav-home { flex: 0 0 auto; width: 42px; height: 42px; }
+    .nav-icon { width: 22px; height: 22px; }
 }
 
 /* Subtle radial pulse on click for common interactive elements */
@@ -581,4 +574,17 @@ html {
     border-radius: 999px;
     background: linear-gradient(180deg, var(--accent), var(--secondary));
     box-shadow: var(--shadow)
+}
+
+/* Visually hide text while keeping it accessible to screen readers */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }

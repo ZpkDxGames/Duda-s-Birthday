@@ -91,7 +91,7 @@ body {
     width: min(1100px, calc(100% - 1.5rem));
     display: flex;
     gap: .6rem;
-    padding: .6rem 1rem;
+    padding: .6rem .8rem;
     /* Create stacking context so the full-bleed pseudo background sits behind controls */
     isolation: isolate;
     /* Simpler chrome: no blend background. Keep controls floating above content. */
@@ -121,9 +121,14 @@ body {
 
 .composer .btn {
     height: 56px;
-    padding: 0 1.2rem;
-    font-size: .98rem
+    width: 56px;
+    padding: 0;
+    font-size: 0; /* icon-only */
+    display: grid;
+    place-items: center;
 }
+
+.composer .btn img { width: 22px; height: 22px; display: block }
 
 .composer .btn.secondary {
     background: #faf7ff
@@ -428,4 +433,11 @@ body {
         background-attachment: scroll;
         background-position: center top, center, center;
     }
+}
+
+@media (max-width: 560px) {
+    .composer { width: calc(100% - 1rem); gap: .5rem; padding: .5rem .6rem; }
+    .composer input { height: 52px; }
+    .composer .btn { height: 52px; width: 52px; }
+    .composer .btn img { width: 20px; height: 20px; }
 }
