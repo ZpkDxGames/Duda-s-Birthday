@@ -8,7 +8,14 @@ body {
     background-repeat: no-repeat, repeat, repeat;
     background-attachment: fixed, fixed, scroll;
 }
-.music-wrap { display: grid; gap: .95rem; padding-bottom: clamp(.5rem, 3vh, 1.5rem); justify-items: center; }
+.music-wrap {
+    width: 100%;
+    display: grid;
+    gap: .95rem;
+    justify-items: center;
+    align-content: start;
+    padding-bottom: clamp(.5rem, 2.5vh, 1.5rem);
+}
 
 .player { width: min(900px, 100%); display: grid; gap: .65rem }
 
@@ -367,4 +374,11 @@ body {
     .artist { font-size: .96rem; }
     .tracklist-pop { max-height: 46svh; }
     .tracklist-scroll { max-height: calc(46svh - 40px); }
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+    body {
+        background-attachment: scroll;
+        background-position: center top, center, center;
+    }
 }

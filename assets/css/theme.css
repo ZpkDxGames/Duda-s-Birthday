@@ -8,15 +8,18 @@
     --shadow-2: 0 8px 28px rgba(0, 0, 0, 0.14);
     --ease: ease-in-out;
     --dur: 0.4s;
+    --appbar-height: 64px;
+    --content-max-width: clamp(320px, 92vw, 1100px);
 }
 
 * {
     box-sizing: border-box
 }
 
+html { min-height: 100%; }
 html,
 body {
-    height: 100%
+    height: 100%;
 }
 
 body {
@@ -26,6 +29,11 @@ body {
     font-family: 'Poppins', 'Quicksand', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-x: hidden;
     overflow-y: auto;
     /* Prevent text selection and image manipulation */
     user-select: none;
@@ -81,9 +89,26 @@ a {
 
 /* Containers */
 .container {
-    max-width: 1100px;
+    width: min(100%, var(--content-max-width));
     margin-inline: auto;
-    padding: .75rem
+    padding-inline: clamp(.75rem, 3vw, 1.75rem);
+    padding-block: clamp(.6rem, 1.5vh, 1.1rem);
+}
+
+main {
+    position: relative;
+    flex: 1 0 auto;
+    width: 100%;
+    margin-inline: auto;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(1.5rem, 5vh, 3rem));
+}
+
+main.container {
+    width: min(100%, var(--content-max-width));
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(.9rem, 2.2vh, 1.6rem);
 }
 
 /* Allow text selection in input fields and editable content */
@@ -242,8 +267,8 @@ header.appbar {
 
 /* Prevent content from being hidden under the fixed header */
 .appbar + main {
-    /* Offset for fixed header, with safe area support. Header is ~64px, add 0.5rem gap. */
-    padding-top: calc(64px + 0.5rem + env(safe-area-inset-top, 0px));
+    /* Offset for fixed header, with safe area support. */
+    padding-top: calc(var(--appbar-height) + 0.5rem + env(safe-area-inset-top, 0px));
 }
 
 nav a {
@@ -274,12 +299,12 @@ nav a:not(.nav-home):active {
 }
 
 header.appbar .container {
-    /* Use a 3-column grid so the brand can stay perfectly centered
-       regardless of the nav width on the right. */
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    display: flex;
     align-items: center;
-    gap: 1rem
+    justify-content: center;
+    width: min(100%, var(--content-max-width));
+    min-height: calc(var(--appbar-height) + env(safe-area-inset-top, 0px));
+    padding-block: clamp(.6rem, 1.2vh, 1rem);
 }
 
 /* Centered brand (icon + text) */
@@ -300,15 +325,11 @@ header.appbar .container {
 }
 
 nav {
-    grid-column: 2;
-    justify-self: center;
-    display: grid;
-    grid-template-columns: max-content;
-    grid-auto-rows: max-content;
-    grid-auto-flow: row;
-    justify-content: center;
+    display: flex;
     align-items: center;
-    gap: .4rem;
+    justify-content: center;
+    gap: .45rem;
+    width: 100%;
 }
 
 /* Icons inside nav pills */
@@ -366,6 +387,7 @@ nav {
 .nav-group {
     display: inline-flex;
     align-items: stretch;
+    justify-content: center;
     background: #fff;
     border: 1px solid rgba(0, 0, 0, .08);
     border-radius: 999px;
@@ -404,8 +426,8 @@ nav {
 
 @media (max-width: 560px) {
     header.appbar .container {
-        grid-template-columns: 1fr;
-        justify-items: center;
+        flex-direction: column;
+        gap: .5rem;
     }
 
     nav {
@@ -414,7 +436,7 @@ nav {
 
     .nav-group {
         width: 100%;
-        max-width: 340px;
+        max-width: min(340px, 100%);
         flex-wrap: wrap;
         justify-content: center;
         gap: 0;

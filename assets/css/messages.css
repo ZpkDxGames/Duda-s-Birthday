@@ -8,7 +8,16 @@ body {
     background-repeat: no-repeat, repeat, repeat;
     background-attachment: fixed, fixed, scroll;
 }
-.stack { display: grid; gap: 1.25rem; }
+
+.messages-wrap {
+    width: 100%;
+    display: grid;
+    gap: 1.25rem;
+    justify-items: center;
+    align-content: start;
+}
+
+.messages-wrap .stack { width: 100%; display: grid; gap: 1.25rem; }
 
 /* Entry animation for cards appearing in viewport */
 .message-card { opacity: 0; transform: translateY(8px); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease) }
@@ -28,4 +37,11 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
     .message-card { transition: none !important; transform: none !important }
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+    body {
+        background-attachment: scroll;
+        background-position: center top, center, center;
+    }
 }

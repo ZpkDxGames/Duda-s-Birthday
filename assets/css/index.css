@@ -92,3 +92,10 @@ main.landing {
     outline: 4px solid rgba(217, 181, 255, .9);
     outline-offset: 4px
 }
+
+@media (max-width: 900px), (pointer: coarse) {
+    main.landing {
+        background-attachment: scroll;
+        background-position: center top, center, center;
+    }
+}

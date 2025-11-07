@@ -9,8 +9,10 @@ body {
     background-attachment: fixed, fixed, scroll;
 }
 .stats-wrap {
+    width: 100%;
     display: grid;
     gap: 1.25rem;
+    align-content: start;
 }
 
 .timers {
@@ -281,4 +283,11 @@ body {
 
     .timer { animation: none !important }
     .timer.open .timer-extra .timer-body { animation: none !important }
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+    body {
+        background-attachment: scroll;
+        background-position: center top, center, center;
+    }
 }
