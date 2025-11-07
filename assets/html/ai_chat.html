@@ -27,9 +27,15 @@
     <main class="chat-wrap container">
         <section class="messages" id="messages" aria-live="polite"></section>
         <div class="composer">
-            <button class="btn secondary" id="historyBtn" title="Manage chat history">History</button>
+            <button class="btn secondary" id="historyBtn" title="Manage chat history" aria-label="History">
+                <img src="../media/icons/clock.svg" alt="" aria-hidden="true" />
+                <span class="sr-only">History</span>
+            </button>
             <input id="userInput" type="text" placeholder="Tell me something magical…" autocomplete="off" />
-            <button class="btn" id="sendBtn">Send</button>
+            <button class="btn" id="sendBtn" title="Send" aria-label="Send">
+                <img src="../media/icons/send.svg" alt="" aria-hidden="true" />
+                <span class="sr-only">Send</span>
+            </button>
         </div>
     </main>
 
